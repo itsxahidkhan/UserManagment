@@ -30,10 +30,10 @@ Route::get('user-list', [AuthController::class, 'userList'])
 // Import Routes
 Route::get('import', [ImportController::class, 'showImportForm'])->name('import.form');
 Route::post('import', [ImportController::class, 'import'])->name('import');
+Route::get('download-sample', [ImportController::class, 'downloadSample'])->name('download.sample');
 
-// Export Routes
-Route::get('export', [ExportController::class, 'export'])->name('export');
-
+//Route::get('export/', [ExportController::class, 'export']);
+Route::get('/export-users', [ExportController::class, 'export'])->name('export.users');
 
 Route::middleware([CheckAdmin::class])->group(function () {
     // Admin routes here

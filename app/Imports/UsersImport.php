@@ -9,19 +9,20 @@ use Illuminate\Support\Facades\Hash;
 
 class UsersImport implements ToModel, WithHeadingRow
 {
-    /**
-     * @param array $row
-     *
-     * @return \Illuminate\Database\Eloquent\Model|null
-     */
     public function model(array $row)
     {
+        if (!isset($row['name'], $row['email'], $row['password'], $row['status'], $row['user_type'])) {
+            return null;
+        }
+
         return new User([
-            'user_name' => $row['user_name'], // Ensure these headers match your CSV headers
+            'name' => $row['name'], 
             'email' => $row['email'],
-            'password' => Hash::make($row['password']),
+            'password' => Hash::make($row['password']), // Hash the password
             'status' => $row['status'],
             'user_type' => $row['user_type'],
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
     }
 }

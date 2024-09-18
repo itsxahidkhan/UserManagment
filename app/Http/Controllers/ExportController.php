@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Maatwebsite\Excel\Facades\Excel;
@@ -9,6 +8,8 @@ class ExportController extends Controller
 {
     public function export()
     {
-        return Excel::download(new UsersExport, 'users.xlsx');
+        $filename = 'users_' . now()->format('Ymd_His') . '.xlsx';
+
+        return Excel::download(new UsersExport, $filename);
     }
 }
